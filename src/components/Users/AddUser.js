@@ -4,7 +4,7 @@ import Button from '../UI/Button';
 import Card from '../UI/Card';
 import classes from './AddUser.module.css';
 
-const AddUser =()=>{
+const AddUser =(props)=>{
     const [enteredUser, setEnteredUser] = useState('');
     const [enteredAge, setEnteredAge] = useState('');
     const formHandler =(event)=>{
@@ -15,7 +15,11 @@ const AddUser =()=>{
         if(+enteredAge <1 ){
             return;
         }
-        console.log(enteredAge, enteredUser);
+        const userDta={
+            name:enteredUser,
+            age:enteredAge
+        }
+        props.onSave(userDta)
         setEnteredAge('');
         setEnteredUser('');
     }

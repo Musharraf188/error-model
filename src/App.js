@@ -4,9 +4,12 @@ import UserList from './components/Users/UserList';
 
 
 function App() {
+  const receivedUserData =(userData)=>{
+    
+  }
   return (
     <div>
-<AddUser />
+<AddUser onSave={receivedUserData}/>
 <UserList users={[]}/>
     </div>
   );
