@@ -1,38 +1,34 @@
 import classes from './AddUser.module.css';
 import Card from '../UI/Card';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Button from '../UI/Button';
 import ErrorModal from '../UI/ErrorModal';
 const AddUser =(props)=>{
-    const [userInput, setUserInput] = useState('');
-    const [userAge, setUserAge] = useState('');
     const [error, setError] = useState();
+    const userName = useRef();
+    const userAgee = useRef();
 
-    const inputHandler =(event)=>{
-        setUserInput(event.target.value);
-    }
-    const ageHandler =(event) =>{
-        setUserAge(event.target.value)
-    }
+  
     const SubmitHandler =(event)=>{
         event.preventDefault();
-        if(userInput.trim().length===0 || userAge.trim().length===0){
+     const   enteredName = userName.current.value
+      const   enteredAge = userAgee.current.value
+        if(enteredName.trim().length===0 || enteredAge.trim().length===0){
             setError({
                 title:'Invalid name',
                 message:'Please enter valid name'
             })
             return;
         }
-        if(userAge < 1){
+        if(enteredAge < 1){
             setError({
                 title:'Invalid age',
                 message:'Please enter valid age (> 0).'
             })
             return;
         }
-     props.onAdd(userInput, userAge);
-        setUserInput('');
-        setUserAge('');
+     props.onAdd( enteredName, enteredAge);
+      
             }
             const errorHandler =()=>{
                 setError(null)
@@ -43,9 +39,9 @@ const AddUser =(props)=>{
     <Card className={classes.input} >
     <form onSubmit={SubmitHandler}>
         <label>UserName</label>
-        <input value={userInput} onChange={inputHandler} type="text"/>
+        <input ref={userName}  type="text"/>
         <label>Age</label>
-        <input value={userAge} onChange={ageHandler} type="number"/>
+        <input ref={userAgee} type="number"/>
         <Button type='submit'>Add User</Button>
     </form>
     </Card>
